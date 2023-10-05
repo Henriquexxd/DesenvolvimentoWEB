@@ -1,0 +1,162 @@
+
+<html lang="pt-BR">
+
+    <head>
+
+        <title>JS</title>
+
+        <link href="style.css" type="text/css" rel="stylesheet" />
+
+
+        <script src="buscar-estado-cidade.js" type="text/javascript"></script>
+
+
+    </head>
+    <body>
+
+        <form>
+
+            <div id="endereco">
+
+                <label>Selecione um estado:</label>
+
+                <select id="estado" onchange="mudarCidade()"></select>
+
+                <div id="container-cidade">
+
+                    <label>Selecione uma cidade:</label>
+
+                    <select id="cidade" onchange="resultado()"></select>
+
+                </div>
+
+            </div>
+
+        </form>
+
+        <div id="resultado">
+
+            <div id="fechar"><span id="fecharX">X</span></div>
+
+            <h3>Resultado</h3>
+
+            <div class="result">
+
+                <span class="item">Estado: <span id="item-estado"></span></span>
+
+                <span class="item">Cidade: <span id="item-cidade"></span></span>
+
+            </div>
+
+        </div>
+
+    </body>
+    <script>
+        document.getElementById('container-cidade').style.display = 'none';
+
+        document.getElementById('resultado').style.display = 'none';
+
+
+        document.getElementById('fecharX').addEventListener("click", function(){
+
+            document.getElementById('resultado').style.display = 'none'
+
+        });
+    </script>
+</html>
+
+const loadCidade = async () => {
+    const url = 'https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome';
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+ 
+
+        const element = document.getElementById('estado');
+        let option = '';
+
+        for (let estado of data) {
+
+ 
+
+            option += `<option value='${estado.sigla}' id='${estado.id}'>${estado.nome}</option>`;
+
+ 
+
+        }
+
+        element.insertAdjacentHTML('beforeend', option);
+
+    } catch (error) {
+
+        console.log('algo deu errado')
+
+    }
+
+}
+const mudarCidade = async () => {
+
+    document.getElementById('container-cidade').style.display = 'block';
+    const elementEstado = document.getElementById('estado');
+    const uf = elementEstado.options[elementEstado.selectedIndex].value;
+    const url = `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/distritos`
+
+ 
+
+    //remover os dados da cidade antes de inserir os novos
+
+    const optionCidade = document.getElementsByClassName('option-cidade');
+
+    while (optionCidade.length != 0){
+
+        optionCidade[0].remove();
+
+    }
+
+ 
+
+    try {
+
+        const response = await fetch(url);
+
+        if(response.ok){
+
+            const data = await response.json();
+            const eleCidade = document.getElementById('cidade');
+
+            let option = '';   
+
+            for (let cidade of data) {
+
+                option += `<option class='option-cidade' value='${cidade.nome}' id='${cidade.id}'>${cidade.nome}</option>`;
+
+            }
+            eleCidade.insertAdjacentHTML('beforeend', option);
+
+        }       
+
+    } catch (error) {
+        console.log("ops! algo deu errado");
+
+    }
+} 
+
+const resultado = () =>{
+
+    document.getElementById('resultado').style.display = 'block';   
+
+    const elementEstado = document.getElementById('estado');
+    const elementCidade = document.getElementById('cidade');   
+
+    const estado = elementEstado.options[elementEstado.selectedIndex].text;
+
+    const cidade = elementCidade.options[elementCidade.selectedIndex].text;   
+
+    document.getElementById('item-estado').textContent = estado;
+    document.getElementById('item-cidade').textContent = cidade;
+
+}
+loadCidade();
+
