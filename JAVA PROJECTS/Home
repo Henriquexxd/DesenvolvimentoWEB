@@ -1,0 +1,8 @@
+
+
+@RestController
+@RequestMapping("/home")
+public class Home{
+
+    
+}
