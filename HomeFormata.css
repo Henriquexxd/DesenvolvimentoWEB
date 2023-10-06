@@ -110,6 +110,12 @@ li :hover ul{
 ul ul li{
     display: block;
 }
+.man{
+    display: flex;
+    padding-top: 10px;
+    align-items: center;
+
+}
 
 
     
