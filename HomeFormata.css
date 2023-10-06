@@ -42,7 +42,7 @@ body{
     align-items: center;
 }
 .login-user button{
-    background-color: #000000;
+    background-color: #c0c0c0;
 
 
 }
@@ -94,7 +94,7 @@ a{
     text-decoration: none;
 }
 
-ul ul {
+/*ul ul {
     display: none;
     position: absolute;
     top: 100%;
@@ -110,12 +110,38 @@ li :hover ul{
 ul ul li{
     display: block;
 }
+*/
+
 .man{
     display: flex;
-    padding-top: 10px;
+    /* padding-top: 10px; */
     align-items: center;
-
+    justify-content: center;
 }
+.imagens{
+    
+    display: flex;
+    padding: 5px;
+    align-items: center;
+    flex-direction: column;
+}
+.imagens h1{
+    color: #c0c0c0;
+    text-align: center;
+}
+.imagens h2{
+    color: #c0c0c0;
+    justify-content: center;
+    text-align: center;
+}
+.botao{
+    width: 100%;
+    background-color: #c0c0c0;
+    cursor: pointer;
+}
+
+
+
 
 
     
