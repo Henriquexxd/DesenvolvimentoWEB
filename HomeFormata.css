@@ -139,6 +139,19 @@ ul ul li{
     background-color: #c0c0c0;
     cursor: pointer;
 }
+.principal{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    
+}
+.principal h1{
+    color: #c0c0c0;
+}
+.imagemprincipal{
+    display: flex;
+    justify-content: center;
+}
 
 
 
